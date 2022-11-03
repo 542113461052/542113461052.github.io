@@ -368,7 +368,9 @@ fill="#000000" stroke="none">
       elsArr.forEach(el => {
         let params = {
           container: el,
+          // 播放模式
           fixed: true,
+          mini: false,
           audio: { ...el.dataset },
           theme: "#b7daff",
           autoplay: false,
