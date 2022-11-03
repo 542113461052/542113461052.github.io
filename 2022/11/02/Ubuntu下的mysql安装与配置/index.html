@@ -113,8 +113,6 @@
 </ul>
           <ul class="wrap-list dark">
   
-    <li><a href="/tags/%E5%8E%9F%E5%88%9B/">🏷️ 原创</a></li>
-  
 </ul>
         </div>
       </div>
@@ -137,22 +135,22 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h2 id="Ubuntu安装并配置mysql"><a href="#Ubuntu安装并配置mysql" class="headerlink" title="Ubuntu安装并配置mysql"></a>Ubuntu安装并配置mysql</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> apt mysql-server-<span class="hljs-number">8</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+        <h2 id="Ubuntu安装并配置mysql"><a href="#Ubuntu安装并配置mysql" class="headerlink" title="Ubuntu安装并配置mysql"></a>Ubuntu安装并配置mysql</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt mysql-server-8.0</span><br></pre></td></tr></table></figure>
 
 <h3 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h3><p>通过其他用户账号登陆MYSQL</p>
-<h4 id="1-执行"><a href="#1-执行" class="headerlink" title="1.执行"></a>1.执行</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo vim <span class="hljs-regexp">/etc/my</span>sql/debian.cnf<br></code></pre></td></tr></table></figure>
+<h4 id="1-执行"><a href="#1-执行" class="headerlink" title="1.执行"></a>1.执行</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/mysql/debian.cnf</span><br></pre></td></tr></table></figure>
 
 <p><img src="/img/image-20221017232723161.png" alt="image-20221017232723161"></p>
-<h4 id="2-通过账号登陆"><a href="#2-通过账号登陆" class="headerlink" title="2.通过账号登陆"></a>2.通过账号登陆</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">mysql -u debian-sys-maint -<span class="hljs-selector-tag">p</span><br></code></pre></td></tr></table></figure>
+<h4 id="2-通过账号登陆"><a href="#2-通过账号登陆" class="headerlink" title="2.通过账号登陆"></a>2.通过账号登陆</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u debian-sys-maint -p</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-修改root-localhost-密码"><a href="#3-修改root-localhost-密码" class="headerlink" title="3.修改root@localhost 密码"></a>3.修改root@localhost 密码</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">use mysql  <span class="hljs-regexp">//</span>选择数据库 <br><br>ALTER user <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="hljs-string">&#x27;&lt;password&gt;&#x27;</span>;  <span class="hljs-regexp">//</span>修改密码格式<br><br>flush privileges;   <span class="hljs-regexp">//</span>刷新权限（多刷新几次）<br></code></pre></td></tr></table></figure>
+<h4 id="3-修改root-localhost-密码"><a href="#3-修改root-localhost-密码" class="headerlink" title="3.修改root@localhost 密码"></a>3.修改root@localhost 密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use mysql  //选择数据库 </span><br><span class="line"></span><br><span class="line">ALTER user &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;&lt;password&gt;&#x27;;  //修改密码格式</span><br><span class="line"></span><br><span class="line">flush privileges;   //刷新权限（多刷新几次）</span><br></pre></td></tr></table></figure>
 
-<h4 id="4-增加root的密码"><a href="#4-增加root的密码" class="headerlink" title="4.增加root的密码"></a>4.增加root的密码</h4><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">user</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;password&#x27;</span>;<br><br>flush <span class="hljs-keyword">privileges</span>;  //刷新权限（多刷新几次）<br></code></pre></td></tr></table></figure>
+<h4 id="4-增加root的密码"><a href="#4-增加root的密码" class="headerlink" title="4.增加root的密码"></a>4.增加root的密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;password&#x27;;</span><br><span class="line"></span><br><span class="line">flush privileges;  //刷新权限（多刷新几次）</span><br></pre></td></tr></table></figure>
 
-<h4 id="5-退出并重启MYSQL服务"><a href="#5-退出并重启MYSQL服务" class="headerlink" title="5.退出并重启MYSQL服务"></a>5.退出并重启MYSQL服务</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-keyword">exit</span>;  <span class="hljs-regexp">//</span>退出MYSQL<br></code></pre></td></tr></table></figure>
+<h4 id="5-退出并重启MYSQL服务"><a href="#5-退出并重启MYSQL服务" class="headerlink" title="5.退出并重启MYSQL服务"></a>5.退出并重启MYSQL服务</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit;  //退出MYSQL</span><br></pre></td></tr></table></figure>
 
 <p>重启MYSQL</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">server</span> mysql <span class="hljs-keyword">restart</span> 或者 sudo /etc/init.d/mysql <span class="hljs-keyword">restart</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server mysql restart 或者 sudo /etc/init.d/mysql restart</span><br></pre></td></tr></table></figure>
       </section>
 
       
@@ -252,7 +250,7 @@
         <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
 </svg>
-        2
+        1
       </div>
     </div>
   </div>
@@ -286,7 +284,7 @@
       
         <li class="categorys-list-item">
           <a href="/categories/%E5%88%86%E4%BA%AB/">
-            分享 (3)
+            分享 (1)
           </a>
         </li>
       
@@ -303,7 +301,7 @@
   </div>
   <div class="widget-body">
     <div class="tags-cloud">
-      <a href="/tags/%E5%8E%9F%E5%88%9B/" style="font-size: 10px;" class="tags-cloud-0">原创</a> <a href="/tags/%E8%B5%84%E6%BA%90/" style="font-size: 10px;" class="tags-cloud-0">资源</a>
+      <a href="/tags/%E8%B5%84%E6%BA%90/" style="font-size: 10px;" class="tags-cloud-0">资源</a>
     </div>
   </div>
 </section>
