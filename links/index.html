@@ -129,10 +129,24 @@
         <section class="page-link-container">
           
             <div class="link-item layout-padding">
-              <a href="https://kyori.xyz/links" title="测试" class="content-padding--primary soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+              <a href="https://cjsdream.github.io/" title="Dream" class="content-padding--primary soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
                 
                 <div>
-                  <h4 class="text-ellipsis">测试</h4>
+                  <h4 class="text-ellipsis">Dream</h4>
+                  
+                  <p class="text-ellipsis">一个大佬</p>
+                  
+                </div>
+              </a>
+            </div>
+          
+            <div class="link-item layout-padding">
+              <a href="https://therehello.top/" title="there hello" class="content-padding--primary soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+                
+                <div>
+                  <h4 class="text-ellipsis">there hello</h4>
+                  
+                  <p class="text-ellipsis">一个大佬</p>
                   
                 </div>
               </a>
@@ -286,6 +300,38 @@
 
   
   <!-- aplayer -->
+
+
+  <!-- aplayer 音频 start -->
+  <link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+  <script type="text/javascript" src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript">
+    const aplayer = document.querySelectorAll(".aplayer-box");
+    aplayer && initaplayer(aplayer);
+    function initaplayer(els) {
+      let elsArr = Array.from(els);
+      elsArr.forEach(el => {
+        let params = {
+          container: el,
+          // 播放模式
+          fixed: true,
+          // mini: false,
+          audio: { ...el.dataset },
+          theme: "#b7daff",
+          autoplay: false,
+          loop: false,
+          mutex: true,
+
+        }
+        if (el.dataset.lrc) {
+          params['lrcType'] = 3
+        }
+        new APlayer(params);
+      });
+    }
+  </script>
+  <!-- aplayer 音频 end -->
+  
 
 
 <!-- dplayer -->
