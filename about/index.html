@@ -121,7 +121,8 @@
     <div class="article-info">
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        
+        <div class="aplayer-box" data-url='http://lc-1j31qkgh.cn-n1.lcfile.com/jFd9YubwBlO0oMDbHnQkdwqSMSIFxUzN/OHMYMEITING-%E4%BD%8F%E5%9C%A8%E5%A4%A9%E7%8B%BC%E6%98%9F%E7%9A%84%E9%82%A3%E5%80%8B%E4%BA%BA.mp3' data-name='住在天狼星的那個人' data-artist='OHMYMEITING' data-cover='http://lc-1J31qkGh.cn-n1.lcfile.com/xuaNg8WKlyKJOl8ij7AwIsq1rzmtRg0T/OHMYMEITING-%E4%BD%8F%E5%9C%A8%E5%A4%A9%E7%8B%BC%E6%98%9F%E7%9A%84%E9%82%A3%E5%80%8B%E4%BA%BA.jpg' data-lrc='http://lc-1J31qkGh.cn-n1.lcfile.com/CDa82U8lBmVvpP2U6kp3PKJVgDWywBNL/OHMYMEITING-%E4%BD%8F%E5%9C%A8%E5%A4%A9%E7%8B%BC%E6%98%9F%E7%9A%84%E9%82%A3%E5%80%8B%E4%BA%BA.lrc' data-lrcType='2' ></div>
+
       </section>
 
       
@@ -272,6 +273,38 @@
 
   
   <!-- aplayer -->
+
+
+  <!-- aplayer 音频 start -->
+  <link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+  <script type="text/javascript" src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript">
+    const aplayer = document.querySelectorAll(".aplayer-box");
+    aplayer && initaplayer(aplayer);
+    function initaplayer(els) {
+      let elsArr = Array.from(els);
+      elsArr.forEach(el => {
+        let params = {
+          container: el,
+          // 播放模式
+          fixed: true,
+          mini: false,
+          audio: { ...el.dataset },
+          theme: "#b7daff",
+          autoplay: false,
+          loop: false,
+          mutex: true,
+
+        }
+        if (el.dataset.lrc) {
+          params['lrcType'] = 3
+        }
+        new APlayer(params);
+      });
+    }
+  </script>
+  <!-- aplayer 音频 end -->
+  
 
 
 <!-- dplayer -->
