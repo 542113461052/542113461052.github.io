@@ -143,7 +143,7 @@
 
 <p><img src="/img/image-20221017232723161.png" alt="image-20221017232723161"></p>
 <h4 id="2-通过账号登陆"><a href="#2-通过账号登陆" class="headerlink" title="2.通过账号登陆"></a>2.通过账号登陆</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u debian-sys-maint -p</span><br></pre></td></tr></table></figure>
-
+<p><img src="/img/image-20221017232723161.png" alt="image-20221017232723161"></p>
 <h4 id="3-修改root-localhost-密码"><a href="#3-修改root-localhost-密码" class="headerlink" title="3.修改root@localhost 密码"></a>3.修改root@localhost 密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use mysql  //选择数据库 </span><br><span class="line"></span><br><span class="line">ALTER user &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;&lt;password&gt;&#x27;;  //修改密码格式</span><br><span class="line"></span><br><span class="line">flush privileges;   //刷新权限（多刷新几次）</span><br></pre></td></tr></table></figure>
 
 <h4 id="4-增加root的密码"><a href="#4-增加root的密码" class="headerlink" title="4.增加root的密码"></a>4.增加root的密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;password&#x27;;</span><br><span class="line"></span><br><span class="line">flush privileges;  //刷新权限（多刷新几次）</span><br></pre></td></tr></table></figure>
@@ -225,7 +225,7 @@
       <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
   <div class="widget-body">
     
-      <img src="/img/630ef3b505ef5.webp" class="soft-size--round soft-style--box" alt="liuming">
+      <img src="/img/20220129031855_dd353.gif" class="soft-size--round soft-style--box" alt="liuming">
     
     
       <h2>liuming</h2>
@@ -292,6 +292,14 @@
     </ul>
   </div>
 </section>
+
+<!-- 
+  <div class="widget-body">
+    <div class="tags-cloud">
+      <a href="/tags/%E8%B5%84%E6%BA%90/" style="font-size: 10px;" class="tags-cloud-0">资源</a>
+    </div>
+  </div>
+</section> -->
 
       <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
   <div class="widget-title">
@@ -374,6 +382,37 @@
 
 <!-- dplayer -->
 
+<!-- fancybox -->
+
+  <link rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"> </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('img').each(function() {
+      if ($(this).hasClass('soft-size--round soft-style--box')){}
+      else{
+       if ($(this).parent().hasClass('fancybox')) return;
+       if ($(this).hasClass('nofancybox')) return;
+       var alt = this.alt;
+    //   if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+       $(this).wrap('<a href="' + ($(this).attr('data-src') == null ? this.src : $(this).attr('data-src')) + '" title="' + alt + '" class="fancybox"></a>');
+     }
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article');
+    });
+  });
+  $(document).ready(function() {
+    $("a[href$='.jpg'],a[href$='.png'],a[href$='.gif'],a[href$='.webp']").attr('rel', 'gallery').fancybox({
+      helpers : {
+      title: { type: 'inside'}
+      }
+    });
+});
+</script>
+  
 
 
 
