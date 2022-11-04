@@ -26,7 +26,7 @@
 
   
 
-  <title>网易云音乐 | liuming的个人博客</title>
+  <title>利用Scrpay爬取快手视频 | liuming的个人博客</title>
 
   
 
@@ -102,11 +102,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">网易云音乐</h1>
+          <h1 class="title-wrap">利用Scrpay爬取快手视频</h1>
           <h2 class="title-sub-wrap">
             <strong>liuming</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2022-11-03T08:50:33.000Z" itemprop="datePublished">2022-11-03</time>
+            <time  class="article-date" datetime="2022-11-04T15:46:08.000Z" itemprop="datePublished">2022-11-04</time>
             
           </h2>
           <ul class="wrap-list dark">
@@ -115,6 +115,8 @@
   
 </ul>
           <ul class="wrap-list dark">
+  
+    <li><a href="/tags/python/">🏷️ python</a></li>
   
 </ul>
         </div>
@@ -138,13 +140,41 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h3 id="ʚ-网易云歌曲、歌词、封面获取-ɞ"><a href="#ʚ-网易云歌曲、歌词、封面获取-ɞ" class="headerlink" title="ʚ 网易云歌曲、歌词、封面获取 ɞ"></a>ʚ 网易云歌曲、歌词、封面获取 ɞ</h3><p>访问地址:<a target="_blank" rel="noopener" href="https://api.paugram.com/netease/">https://api.paugram.com/netease/</a><br>并输入参数 id 或 title，即可获得一段歌曲 JSON 信息。<br>例如：<br><a target="_blank" rel="noopener" href="https://api.paugram.com/netease/?id=545009030">https://api.paugram.com/netease/?id=545009030</a><br><img src="/img/202211031709.png"><br>歌词：新建一个文本文件，将 <strong>lyric</strong> 的值复制粘贴到里面，将\n替换成换行，修改文件后缀为.lrc即可<br>歌曲：将<strong>link</strong>的值即为音乐地址，下载即可。<br>封面：将cover的值之后的 <strong>?param&#x3D;及其后面</strong> 去掉即为清晰的封面链接</p>
+        <div class="aplayer-box" data-url='/song/OHMYMEITING-住在天狼星的那個人.mp3' data-name='住在天狼星的那個人' data-artist='OHMYMEITING' data-cover='/img/song/OHMYMEITING-住在天狼星的那個人.jpg' data-lrc='/lyric/OHMYMEITING-住在天狼星的那個人.lrc' data-lrcType='2' ></div>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><strong>将kid替换即可</strong><br>例如:<br>短视频：<a target="_blank" rel="noopener" href="https://www.kuaishou.com/short-video/3xdtapybdew5qyy?authorId=3x">https://www.kuaishou.com/short-video/3xdtapybdew5qyy?authorId=3x</a>…<br>长视频：<a target="_blank" rel="noopener" href="https://www.kuaishou.com/video/3xdtapybdew5qyy?authorId=3x">https://www.kuaishou.com/video/3xdtapybdew5qyy?authorId=3x</a>…<br>kid为3xdtapybdew5qyy</p>
+<h3 id="用到的库"><a href="#用到的库" class="headerlink" title="用到的库"></a>用到的库</h3><p>re</p>
+<p>scrapy</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>F12打开，开发者工具，定位视频位置发现，上面有video标签，将其链接粘贴入浏览器，发现即为视频地址</p>
+<p><img src="/img/%E5%88%A9%E7%94%A8Scrpay%E7%88%AC%E5%8F%96%E5%BF%AB%E6%89%8B%E8%A7%86%E9%A2%91/image-20221105001340411.png" alt="image-20221105001340411"></p>
+<p>查看其源代码发现对应video标签下，并没有我们想要的视频地址</p>
+<p><img src="/img/%E5%88%A9%E7%94%A8Scrpay%E7%88%AC%E5%8F%96%E5%BF%AB%E6%89%8B%E8%A7%86%E9%A2%91/image-20221105001734011.png" alt="image-20221105001734011"></p>
+<p>在源码中，搜索视频域名后发现，视频地址藏在photoUrl中，顺便获取作品名，作为视频的文件名。</p>
+<p><img src="/img/%E5%88%A9%E7%94%A8Scrpay%E7%88%AC%E5%8F%96%E5%BF%AB%E6%89%8B%E8%A7%86%E9%A2%91/image-20221105002019230.png" alt="image-20221105002019230"></p>
+<p><img src="/img/%E5%88%A9%E7%94%A8Scrpay%E7%88%AC%E5%8F%96%E5%BF%AB%E6%89%8B%E8%A7%86%E9%A2%91/image-20221105002755925.png" alt="image-20221105002755925"></p>
+<p>1.根据kid拼接成视频网址</p>
+<p>2.请求网站获取网页源码（需要在Request里面加cookie，header）</p>
+<p>3.利用正则表达式获取作品名，视频地址。</p>
+<p>4.下载视频</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>kuaishou.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> ..items <span class="keyword">import</span> kuaishouItem</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">KuaishouSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;kuaishou&#x27;</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;kuaishou.com&#x27;</span>]</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">start_requests</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># kid</span></span><br><span class="line">        kid=<span class="string">&#x27;3xyuezbqdnarxqi&#x27;</span></span><br><span class="line">        <span class="comment"># header</span></span><br><span class="line">        header=&#123;</span><br><span class="line">            <span class="string">&#x27;Accept&#x27;</span>: 浏览器复制</span><br><span class="line">            ,<span class="string">&#x27;Host&#x27;</span>: <span class="string">&#x27;www.kuaishou.com&#x27;</span></span><br><span class="line">            ,<span class="string">&#x27;User-Agent&#x27;</span>: 浏览器复制</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment"># cookie</span></span><br><span class="line">        cookie=&#123;</span><br><span class="line">            <span class="string">&#x27;kpf&#x27;</span>:<span class="string">&#x27;PC_WEB&#x27;</span></span><br><span class="line">            ,<span class="string">&#x27;kpn&#x27;</span>:<span class="string">&#x27;KUAISHOU_VISION&#x27;</span></span><br><span class="line">            ,<span class="string">&#x27;clientid&#x27;</span>:<span class="string">&#x27;3&#x27;</span></span><br><span class="line">            ,<span class="string">&#x27;did&#x27;</span>:liu</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(url=<span class="string">f&#x27;https://www.kuaishou.com/short-video/<span class="subst">&#123;kid&#125;</span>&#x27;</span>,\</span><br><span class="line">                cookies=cookie)</span><br><span class="line">        <span class="comment"># 解析网页源码</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        s=response.text</span><br><span class="line">        result = re.findall(<span class="string">r&#x27;&lt;title&gt;(.*?)&lt;/title&gt;.*photoUrl&quot;:&quot;(.*?)&quot;,&#x27;</span>,s)  <span class="comment"># 正则匹配视频url,name</span></span><br><span class="line">        url=result[<span class="number">0</span>][<span class="number">1</span>].replace(<span class="string">&#x27;u002F&#x27;</span>,<span class="string">&#x27;&#x27;</span>,<span class="number">8</span>).replace(<span class="string">&#x27;\\&#x27;</span>,<span class="string">&#x27;/&#x27;</span>)  <span class="comment"># 处理url</span></span><br><span class="line">        name=result[<span class="number">0</span>][<span class="number">0</span>]  </span><br><span class="line">        item = kuaishouItem()</span><br><span class="line">        item[<span class="string">&#x27;name&#x27;</span>]=name</span><br><span class="line">        item[<span class="string">&#x27;mp4_url&#x27;</span>]=url</span><br><span class="line">        <span class="keyword">yield</span> item</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>items.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">kuaishouItem</span>(scrapy.Item):</span><br><span class="line">    name=scrapy.Field()</span><br><span class="line">    mp4_url=scrapy.Field()</span><br></pre></td></tr></table></figure>
+
+<p>pipelines.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">KuaishouPipeline</span>(<span class="title class_ inherited__">FilesPipeline</span>):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">get_media_requests</span>(<span class="params">self, item, info</span>):</span><br><span class="line">        <span class="keyword">yield</span> scrapy.Request(url=item[<span class="string">&#x27;mp4_url&#x27;</span>],meta=&#123;<span class="string">&#x27;item&#x27;</span>:item&#125;)</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">file_path</span>(<span class="params">self, request, response=<span class="literal">None</span>, info=<span class="literal">None</span>, *, item=<span class="literal">None</span></span>):</span><br><span class="line">        item=request.meta[<span class="string">&#x27;item&#x27;</span>]</span><br><span class="line">        filename = <span class="string">&#x27;kuaishou/&#x27;</span>+item[<span class="string">&#x27;name&#x27;</span>]+<span class="string">&#x27;.mp4&#x27;</span> <span class="comment"># 处理文件名</span></span><br><span class="line">        <span class="keyword">return</span> filename</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">item_completed</span>(<span class="params">self, results, item, info</span>):</span><br><span class="line">        <span class="keyword">return</span> item</span><br></pre></td></tr></table></figure>
+
+<p>settings.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 文件保存路径</span></span><br><span class="line">FILES_STORE = <span class="string">f&#x27;/home/user/桌面/<span class="subst">&#123;BOT_NAME&#125;</span>&#x27;</span></span><br><span class="line">ROBOTSTXT_OBEY = <span class="literal">False</span></span><br><span class="line">ITEM_PIPELINES = &#123;</span><br><span class="line"><span class="comment"># 快手</span></span><br><span class="line">    <span class="string">&#x27;spiderdemo.pipelines.KuaishouPipeline&#x27;</span>:<span class="number">300</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       </section>
 
       
       
         <nav class="article-nav">
+          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
@@ -153,21 +183,6 @@
       
         <a href="/2022/11/03/%E7%BD%91%E7%AB%99%E5%88%86%E4%BA%AB/" itemprop="url">
           <h2 class="card-text--title text-ellipsis">网站分享</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
-          
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2022/11/02/Ubuntu%E4%B8%8B%E7%9A%84mysql%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">Ubuntu下的mysql安装与配置</h2>
         </a>
       
       <div class="card-text--row">Older</div>
@@ -246,6 +261,18 @@
 </section>
 
       
+<section class="widget-toc widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-toc" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M134.50666666 767.46666668H460.8c27.73333333 0 50.24000001 22.50666668 50.24000001 50.23999999v50.13333333c0 27.73333333-22.50666668 50.24000001-50.24000001 50.24000001H134.50666666c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.24000001v-50.13333333c0.10666668-27.73333333 22.50666668-50.24000001 50.24000001-50.24000001zM84.37333332 541.65333333h326.18666669c27.73333333 0 50.24000001 22.39999999 50.23999999 50.13333334v50.24000001c0 27.73333333-22.50666668 50.24000001-50.24000002 50.23999999H84.37333332c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.23999999v-50.24000001c0-27.73333333 22.50666668-50.13333334 50.24000001-50.13333334zM134.50666666 315.83999999H460.8c27.73333333 0 50.24000001 22.50666668 50.24000001 50.24000001v50.24000001c0 27.73333333-22.50666668 50.13333334-50.24000001 50.13333333H134.50666666c-27.73333333 0-50.24000001-22.39999999-50.23999999-50.13333333v-50.24000001c0.10666668-27.84000001 22.50666668-50.24000001 50.24000001-50.23999999zM209.81333332 89.91999999h326.18666671c27.73333333 0 50.24000001 22.39999999 50.23999997 50.13333335v50.23999999c0 27.73333333-22.50666668 50.24000001-50.24000001 50.24000001H209.81333332c-27.73333333 0-50.24000001-22.50666668-50.23999999-50.24000001v-50.24000001c0-27.73333333 22.50666668-50.13333334 50.24000001-50.13333333zM692.05333333 623.36l274.66666669 176.00000002c23.36000001 14.93333333 30.08 45.97333334 15.14666666 69.33333332L954.77333334 910.93333333c-14.93333333 23.25333334-45.97333334 30.08-69.33333335 15.14666667l-274.66666666-176c-23.36000001-14.93333333-30.08-45.97333334-15.14666667-69.33333333l27.09333334-42.24000001c14.93333333-23.36000001 46.08000001-30.08 69.33333333-15.14666666z" fill="currentColor"></path>
+</svg>
+    <span>TOC</span>
+  </div>
+  <div class="widget-body">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E5%88%B0%E7%9A%84%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">用到的库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">3.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">4.</span> <span class="toc-text">代码</span></a></li></ol>
+  </div>
+</section>
+
 
       
 <section class="widet-notice widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
@@ -374,10 +401,71 @@
   <!-- aplayer -->
 
 
+  <!-- aplayer 音频 start -->
+  <link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+  <script type="text/javascript" src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+  <script type="text/javascript">
+    const aplayer = document.querySelectorAll(".aplayer-box");
+    aplayer && initaplayer(aplayer);
+    function initaplayer(els) {
+      let elsArr = Array.from(els);
+      elsArr.forEach(el => {
+        let params = {
+          container: el,
+          // 播放模式
+          fixed: true,
+          // mini: false,
+          audio: { ...el.dataset },
+          theme: "#b7daff",
+          autoplay: false,
+          loop: false,
+          mutex: true,
+
+        }
+        if (el.dataset.lrc) {
+          params['lrcType'] = 3
+        }
+        new APlayer(params);
+      });
+    }
+  </script>
+  <!-- aplayer 音频 end -->
+  
+
+
 <!-- dplayer -->
 
 
 <!-- fancybox -->
+
+<link rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css">
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js"> </script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('img').each(function() {
+      if ($(this).hasClass('soft-size--round soft-style--box')){}
+      else{
+       if ($(this).parent().hasClass('fancybox')) return;
+       if ($(this).hasClass('nofancybox')) return;
+       var alt = this.alt;
+    //   if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+       $(this).wrap('<a href="' + ($(this).attr('data-src') == null ? this.src : $(this).attr('data-src')) + '" title="' + alt + '" class="fancybox"></a>');
+     }
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article');
+    });
+  });
+  $(document).ready(function() {
+    $("a[href$='.jpg'],a[href$='.png'],a[href$='.gif'],a[href$='.webp']").attr('rel', 'gallery').fancybox({
+      helpers : {
+      title: { type: 'inside'}
+      }
+    });
+});
+</script>
 
 
 
