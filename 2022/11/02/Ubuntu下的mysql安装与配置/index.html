@@ -35,7 +35,10 @@
   
 
   
-
+  
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/vs.css">
   
 
   
@@ -43,6 +46,11 @@
 
 </head>
 <body>
+  <!--  -->
+  <script>
+    hljs.initHighlightingOnLoad();
+  </script>
+
   <div class="root-container">
     
 <!-- header container -->
@@ -135,22 +143,22 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h2 id="Ubuntu安装并配置mysql"><a href="#Ubuntu安装并配置mysql" class="headerlink" title="Ubuntu安装并配置mysql"></a>Ubuntu安装并配置mysql</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt mysql-server-8.0</span><br></pre></td></tr></table></figure>
+        <h2 id="Ubuntu安装并配置mysql"><a href="#Ubuntu安装并配置mysql" class="headerlink" title="Ubuntu安装并配置mysql"></a>Ubuntu安装并配置mysql</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> apt mysql-server-<span class="hljs-number">8</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="修改root密码"><a href="#修改root密码" class="headerlink" title="修改root密码"></a>修改root密码</h3><p>通过其他用户账号登陆MYSQL</p>
-<h4 id="1-执行"><a href="#1-执行" class="headerlink" title="1.执行"></a>1.执行</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/mysql/debian.cnf</span><br></pre></td></tr></table></figure>
+<h4 id="1-执行"><a href="#1-执行" class="headerlink" title="1.执行"></a>1.执行</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">sudo vim <span class="hljs-regexp">/etc/my</span>sql/debian.cnf<br></code></pre></td></tr></table></figure>
 
 <p><img src="/img/image-20221017232723161.png" alt="image-20221017232723161"></p>
-<h4 id="2-通过账号登陆"><a href="#2-通过账号登陆" class="headerlink" title="2.通过账号登陆"></a>2.通过账号登陆</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u debian-sys-maint -p</span><br></pre></td></tr></table></figure>
+<h4 id="2-通过账号登陆"><a href="#2-通过账号登陆" class="headerlink" title="2.通过账号登陆"></a>2.通过账号登陆</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">mysql -u debian-sys-maint -<span class="hljs-selector-tag">p</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="3-修改root-localhost-密码"><a href="#3-修改root-localhost-密码" class="headerlink" title="3.修改root@localhost 密码"></a>3.修改root@localhost 密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use mysql  //选择数据库 </span><br><span class="line"></span><br><span class="line">ALTER user &#x27;root&#x27;@&#x27;localhost&#x27; IDENTIFIED BY &#x27;&lt;password&gt;&#x27;;  //修改密码格式</span><br><span class="line"></span><br><span class="line">flush privileges;   //刷新权限（多刷新几次）</span><br></pre></td></tr></table></figure>
+<h4 id="3-修改root-localhost-密码"><a href="#3-修改root-localhost-密码" class="headerlink" title="3.修改root@localhost 密码"></a>3.修改root@localhost 密码</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">use mysql  <span class="hljs-regexp">//</span>选择数据库 <br><br>ALTER user <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> IDENTIFIED BY <span class="hljs-string">&#x27;&lt;password&gt;&#x27;</span>;  <span class="hljs-regexp">//</span>修改密码格式<br><br>flush privileges;   <span class="hljs-regexp">//</span>刷新权限（多刷新几次）<br></code></pre></td></tr></table></figure>
 
-<h4 id="4-增加root的密码"><a href="#4-增加root的密码" class="headerlink" title="4.增加root的密码"></a>4.增加root的密码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alter user &#x27;root&#x27;@&#x27;localhost&#x27; identified by &#x27;password&#x27;;</span><br><span class="line"></span><br><span class="line">flush privileges;  //刷新权限（多刷新几次）</span><br></pre></td></tr></table></figure>
+<h4 id="4-增加root的密码"><a href="#4-增加root的密码" class="headerlink" title="4.增加root的密码"></a>4.增加root的密码</h4><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">user</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> identified <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;password&#x27;</span>;<br><br>flush <span class="hljs-keyword">privileges</span>;  //刷新权限（多刷新几次）<br></code></pre></td></tr></table></figure>
 
-<h4 id="5-退出并重启MYSQL服务"><a href="#5-退出并重启MYSQL服务" class="headerlink" title="5.退出并重启MYSQL服务"></a>5.退出并重启MYSQL服务</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exit;  //退出MYSQL</span><br></pre></td></tr></table></figure>
+<h4 id="5-退出并重启MYSQL服务"><a href="#5-退出并重启MYSQL服务" class="headerlink" title="5.退出并重启MYSQL服务"></a>5.退出并重启MYSQL服务</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-keyword">exit</span>;  <span class="hljs-regexp">//</span>退出MYSQL<br></code></pre></td></tr></table></figure>
 
 <p>重启MYSQL</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server mysql restart 或者 sudo /etc/init.d/mysql restart</span><br></pre></td></tr></table></figure>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">server</span> mysql <span class="hljs-keyword">restart</span> 或者 sudo /etc/init.d/mysql <span class="hljs-keyword">restart</span><br></code></pre></td></tr></table></figure>
       </section>
 
       
